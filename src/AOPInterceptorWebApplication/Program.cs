@@ -1,27 +1,28 @@
 using AOPInterceptorWebApplication.Domain;
 using AOPInterceptorWebApplication.Infra.Repositories.ReadRepositories.DataReadRepositories;
+using AOPInterceptorWebApplication.Logging;
 using AOPInterceptorWebApplication.Services;
 using AOPInterceptorWebApplication.Services.Contracts;
+using Castle.DynamicProxy;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 #region [ DI ]
 
-builder.Services.AddScoped<IDataReadRepository, DataReadRepository>();
-builder.Services.AddScoped<IDataServices, DataServices>();
+builder.Services.AddSingleton(new ProxyGenerator());
+builder.Services.AddScoped<ILoggingInterceptor, LoggingInterceptor>();
+
+builder.Services.AddProxiedScoped<IDataReadRepository, DataReadRepository>();
+builder.Services.AddProxiedTransient<IDataServices, DataServices>();
 
 #endregion [ DI ]
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
