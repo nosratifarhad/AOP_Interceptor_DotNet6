@@ -1,4 +1,4 @@
-﻿namespace AOPInterceptorWebApplication.Domain.Features.Queries
+﻿namespace AOPInterceptorWebApplication.Application.Features.Queries
 {
     //https://docs.simpleinjector.org/en/latest/aop.html
     //https://medium.com/@willie.tetlow/net-core-dependency-injection-decorator-workaround-664cd3ec1246
