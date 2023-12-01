@@ -11,15 +11,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-#region [ DI ]
+#region [ DIC ]
 
 builder.Services.AddSingleton(new ProxyGenerator());
 builder.Services.AddScoped<ILoggingInterceptor, LoggingInterceptor>();
 
-builder.Services.AddProxiedScoped<IDataReadRepository, DataReadRepository>();
-builder.Services.AddProxiedTransient<IDataServices, DataServices>();
 
-#endregion [ DI ]
+builder.Services.AddProxiedScoped<IProductReadRepository, ProductReadRepository>();
+builder.Services.AddProxiedScoped<IProductServices, ProductServices>();
+
+#endregion [ DIC ]
 
 var app = builder.Build();
 
