@@ -20,7 +20,7 @@ public class ProductsController : ControllerBase
 
     #endregion Ctor
 
-    [HttpGet("/api/v1/Products/get-product-list")]
+    [HttpGet("/api/v1/products/get-product-list")]
     public async ValueTask<IActionResult> GetProductsAsync()
     {
         var products = await _dataServices.GetProductsAsync();
